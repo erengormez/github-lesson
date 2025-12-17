@@ -15,10 +15,10 @@ with DAG('simple_dag', default_args=default_args, schedule='@daily', catchup=Fal
     t0 = BashOperator(task_id='ls_data', bash_command='ls -l /tmp', retries=2, retry_delay=timedelta(seconds=15))
 
     t1 = BashOperator(task_id='download_data',
-                      bash_command='curl -L -o /tmp/dirty_store_transactions.csv https://github.com/erkansirin78/datasets/raw/master/dirty_store_transactions.csv',
+                      bash_command='curl -L -o /tmp/dirty_store_transactions.csv https://raw.githubusercontent.com/erkansirin78/datasets/refs/heads/master/PozisyonSeviyeMaas.csv',
                       retries=2, retry_delay=timedelta(seconds=15))
 
-    t2 = BashOperator(task_id='check_file_exists', bash_command='sha256sum /tmp/dirty_store_transactions.csv',
+    t2 = BashOperator(task_id='check_file_exists', bash_command='sha256sum /tmp/PozisyonSeviyeMaas.csv',
                       retries=2, retry_delay=timedelta(seconds=15))
 
     t0 >> t1 >> t2
